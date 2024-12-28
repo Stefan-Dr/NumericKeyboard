@@ -26,29 +26,29 @@ Keypad::~Keypad()
 void Keypad::onNumberClicked(){
     auto button = qobject_cast<QPushButton*>(sender());
     auto buttonText = button->text();
+    //prevents adding a text that aren't numbers in case QPushButton text is changed
+    if (buttonText.length() != 1 || !buttonText[0].isDigit()){
+        return;
+    }
 
-    auto text = ui->textEdit->toPlainText();
-    text.append(buttonText);
-    ui->textEdit->setPlainText(text);
+    ui->lineEdit->insert(buttonText);
 }
 
 void Keypad::on_pbDot_clicked()
 {
     if (!dotClicked){
-        QString text = ui->textEdit->toPlainText();
-        text.append(ui->pbDot->text());
-        ui->textEdit->setPlainText(text);
+        ui->lineEdit->insert(".");
         dotClicked = true;
     }
 }
 
 void Keypad::on_pbDelete_clicked()
 {
-    QString text = ui->textEdit->toPlainText();
+    QString text = ui->lineEdit->text();
     if (text.isEmpty()) return;
 
     text.chop(1);
-    ui->textEdit->setPlainText(text);
+    ui->lineEdit->setText(text);
     if (!text.contains('.')) dotClicked = false;
 
 }
