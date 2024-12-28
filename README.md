@@ -16,3 +16,5 @@ Open QTCreator and open
 ```bash
   CMakeLists.txt
 ```
+
+![Screenshot](NumericKeyboard/images/numericKeyboard.png)
